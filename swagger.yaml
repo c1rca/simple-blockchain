@@ -1,0 +1,90 @@
+openapi: 3.0.1
+info:
+  title: Simple Blockchain API
+  contact:
+    email: waldbauma686@gmail.com
+  version: 1.0
+servers:
+- url: http://alexblockchainproject.com:8885/
+tags:
+- name: Basic endpoints
+  description: Blockchain endpoints
+paths:
+  /newblock:
+    post:
+      tags:
+      - Basic endpoints
+      summary: Add new block to blockchain, returns added block.
+      operationId: new
+      requestBody:
+        description: Block message
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/BlockMessage'
+        required: true
+      responses:
+        200:
+          description: Block added successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+  /chain:
+    get:
+      tags:
+      - Basic endpoints
+      summary: Returns the full blockchain
+      operationId: chain
+      responses:
+        200:
+          description: Query successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chain'
+  /chain/validate:
+    get:
+      tags:
+      - Basic endpoints
+      summary: Returns True if hashes are valid, False is hashes are invalid.
+      operationId: validate
+      responses:
+        200:
+          description: Query successful.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/isValid'
+components:
+  schemas:
+    Block:
+      type: object
+      properties:
+        index:
+          type: integer
+        message:
+          type: string
+        prev_hash:
+          type: string
+        timestamp:
+          type: integer
+      example:
+        index: 1
+        message: "example"
+        "prev_hash": "fbfd6ccc9fd2046817e891824d5931e0ef7f0e083ece4ce4160a71fbbf8431a5"
+        "timestamp": "1620487401.7033737"
+    Chain:
+      type: array
+      items:
+        $ref: '#/components/schemas/Block'
+
+    BlockMessage:
+      type: object
+      properties:
+        msg:
+          type: string
+      example:
+        "msg": "Example"
+    isValid:
+      type: string

@@ -1,0 +1,9 @@
+hashlib
+flask
+flask_cors
+flask-swagger-ui
+flask-swagger
+
+
+
+
