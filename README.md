@@ -3,8 +3,7 @@
 ## Requirements
 
 - Flask
-- Flask cors 
-- Hashlib
+- Flask cors
 - Flask swagger
 - Flask Swagger UI
 
